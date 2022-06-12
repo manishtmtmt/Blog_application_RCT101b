@@ -141,9 +141,9 @@ const deleteBlogPostFailure = (payload) => {
 const deleteBlogPost = (payload) => (dispatch) => {
   dispatch(deleteBlogPostRequest());
   axios
-    .delete(`/blogs/${payload.id}`, payload)
-    .then((r) => dispatch(deleteBlogPostSuccess(r.data)))
+    .delete(`/blogs/${payload}`)
+    .then((r) => dispatch(deleteBlogPostSuccess()))
     .catch((e) => dispatch(deleteBlogPostFailure(e.data)));
 };
 
-export { fetchBlogPost, fetchSingleBlog, createBlogPost, updateBlogPost };
+export { fetchBlogPost, fetchSingleBlog, createBlogPost, updateBlogPost, deleteBlogPost };

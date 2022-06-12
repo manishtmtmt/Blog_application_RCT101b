@@ -11,21 +11,27 @@ import {
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useParams } from "react-router-dom";
-import { fetchSingleBlog } from "../Redux/Blogs/action";
-import { EditIcon } from "@chakra-ui/icons";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { deleteBlogPost, fetchSingleBlog } from "../Redux/Blogs/action";
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 
 const Article = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const currentBlog = useSelector((store) => store.blogReducer.currentBlog);
 
   useEffect(() => {
     if (id) {
       dispatch(fetchSingleBlog(Number(id)));
     }
-  }, [currentBlog, dispatch, id]);
+  }, [dispatch]);
+
+  const handleDeletePost = () => {
+    dispatch(deleteBlogPost(id))
+    navigate("/articles")
+  }
 
   return (
     <Container maxW={"3xl"} pb={"4rem"}>
@@ -39,6 +45,7 @@ const Article = () => {
           <Link to={`${location.pathname}/update`}>
             <EditIcon />
           </Link>
+          <DeleteIcon onClick={handleDeletePost} />
         </Box>
         <Text fontSize="lg">{currentBlog?.author?.name}</Text>
         <Text>{currentBlog?.author?.publish_date}</Text>
