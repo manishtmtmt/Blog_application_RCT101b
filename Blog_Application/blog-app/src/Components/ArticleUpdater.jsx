@@ -10,7 +10,6 @@ import {
   Stack,
   Textarea,
 } from "@chakra-ui/react";
-import {} from "@chakra-ui/icons";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createBlogPost } from "../Redux/Blogs/action";
@@ -82,6 +81,7 @@ const ArticleUpdater = ({ currentBlog }) => {
         },
     };
     dispatch(updateBlogPost(updatedData))
+    navigate(-1)
   };
 
   return (
